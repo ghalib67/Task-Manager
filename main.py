@@ -22,13 +22,58 @@ def AddTask(task: str):
         "id": id_num,
         "description": task,
         "status": "to do",
-        "created_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "updated at" : datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        "createdAt": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "updatedAt" : datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
     
     data.append(new_task)
     with open(file_path, "w") as f:
         json.dump(data, f, indent=4)
 
+def updateTask(task):
+    with open("files/tasks.json","r") as f:
+        data = json.load(f)
+    if isinstance(task, str):
+        for i in data:
+            if i["description"] == task:
+                progress = input("change the status to:\n1: Done \n2: In progress \n3: To-Do ")
+                match progress:
+                    case "1":
+                        i["status"] = "Done"
+                    case "2":
+                        i["status"] = "In progress"
+                    case "3":
+                        i["status"] = "To-Do"
+                
+                i["updatedAt"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                with open("files/tasks.json", "w") as f:
+                    json.dump(data, f, indent=4)
+                return
+    
+    if isinstance(task, int):
+        for i in data:
+            if i["id"] == task:
+                progress = input("change the status to:\n1: Done \n2: In progress \n3: To-Do ")
+                match progress:
+                    case "1":
+                        i["status"] = "Done"
+                    case "2":
+                        i["status"] = "In progress"
+                    case "3":
+                        i["status"] = "To-Do"
+                
+                i["updatedAt"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                with open("files/tasks.json", "w") as f:
+                    json.dump(data, f, indent=4)
+                return
+    print("could not find the task")
+    
+    
+    
 if __name__ == "__main__":
-    AddTask("eat")
+    AddTask("Buy groceries")
+    AddTask("Wash the car")
+    AddTask("Do homework")
+    updateTask("Wash the car")
+
+
