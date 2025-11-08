@@ -21,7 +21,7 @@ def AddTask(task: str):
     new_task = {
         "id": id_num,
         "description": task,
-        "status": "to do",
+        "status": "To-Do",
         "createdAt": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "updatedAt" : datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     }
@@ -76,11 +76,24 @@ def AllTasks():
         for key, value in i.items():
             print(f"{key}: {value}")
 
+def doneTasks():
+    with open("files/tasks.json","r") as f:
+        data = json.load(f)
+    
+    for i in data:
+        if i["status"] == "Done":
+            for key, value in i.items():
+                print(f"{key}: {value}")
+
+
 if __name__ == "__main__":
     AddTask("Buy groceries")
     AddTask("Wash the car")
     AddTask("Do homework")
     updateTask("Wash the car")
+    print()
     AllTasks()
+    print()
+    doneTasks()
 
 
