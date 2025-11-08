@@ -85,15 +85,28 @@ def doneTasks():
             for key, value in i.items():
                 print(f"{key}: {value}")
 
+def inProgress():
+    with open("files/tasks.json","r") as f:
+        data = json.load(f)
+        
+    for i in data:
+        if i["status"] == "In progress":
+            for key, value in i.items():
+                print(f"{key}: {value}")  
+
+
 
 if __name__ == "__main__":
     AddTask("Buy groceries")
     AddTask("Wash the car")
     AddTask("Do homework")
     updateTask("Wash the car")
+    updateTask(1)
     print()
     AllTasks()
     print()
     doneTasks()
+    print()
+    inProgress()
 
 
