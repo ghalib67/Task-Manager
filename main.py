@@ -94,7 +94,14 @@ def inProgress():
             for key, value in i.items():
                 print(f"{key}: {value}")  
 
-
+def notDone():
+    with open("files/tasks.json","r") as f:
+        data = json.load(f)
+        
+    for i in data:
+        if i["status"] != "Done":
+            for key, value in i.items():
+                print(f"{key}: {value}")      
 
 if __name__ == "__main__":
     AddTask("Buy groceries")
@@ -108,5 +115,7 @@ if __name__ == "__main__":
     doneTasks()
     print()
     inProgress()
+    print()
+    notDone()
 
 
