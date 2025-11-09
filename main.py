@@ -31,8 +31,11 @@ def AddTask(task: str):
         json.dump(data, f, indent=4)
 
 def updateTask(task):
-    with open("files/tasks.json","r") as f:
-        data = json.load(f)
+    with open("Files/tasks.json", "r") as f:
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []
 
     for i in data:
         if i["id"] == task:
@@ -52,8 +55,12 @@ def updateTask(task):
     print("could not find the task")
     
 def AllTasks():
-    with open("files/tasks.json","r") as f:
-        data = json.load(f)
+    with open("Files/tasks.json", "r") as f:
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []
+            
     print("\n===== ALL TASKS =====")
     for i in data:
         print(f"\nID: {i['id']}")
@@ -64,8 +71,12 @@ def AllTasks():
         print("-" * 30)
 
 def doneTasks():
-    with open("files/tasks.json","r") as f:
-        data = json.load(f)
+    with open("Files/tasks.json", "r") as f:
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []
+            
     print("\n===== DONE TASKS =====")
     for i in data:
         if i["status"] == "Done":
@@ -76,8 +87,12 @@ def doneTasks():
             print("-" * 30)
 
 def inProgress():
-    with open("files/tasks.json","r") as f:
-        data = json.load(f)
+    with open("Files/tasks.json", "r") as f:
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []
+            
     print("\n===== IN PROGRESS TASKS =====")
     for i in data:
         if i["status"] == "In progress":
@@ -88,8 +103,12 @@ def inProgress():
             print("-" * 30)
 
 def notDone():
-    with open("files/tasks.json","r") as f:
-        data = json.load(f)
+    with open("Files/tasks.json", "r") as f:
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []
+            
     print("\n===== NOT DONE TASKS =====")
     for i in data:
         if i["status"] != "Done":
@@ -103,7 +122,10 @@ def notDone():
 
 def deleteTask(task):
     with open("files/tasks.json", "r") as f:
-        data = json.load(f)
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []
 
     for i in data:
         if i["id"] == task:
@@ -117,13 +139,18 @@ def deleteTask(task):
 if __name__ == "__main__":
     command = 0
     while command != 3:
-        command = int(input("Please input a command:\n1: Add, Update or Delete a task\n2: List Tasks\n3: Exit Task Manager\nInput "))
+        try:
+            command = int(input("Please input a command:\n1: Add, Update or Delete a task\n2: List Tasks\n3: Exit Task Manager\nInput "))
+        except ValueError:
+            print("Invalid input, please enter a number.")
+            continue
+        
         match command:
             case 1:
                 cmd = int(input("Please input a command:\n1: Add a task\n2: update a task\n3: Delete a task\nInput: "))
                 match cmd:
                     case 1:
-                        AddTask(input("Input the description of the task you wish to add: "))
+                        AddTask(input("Input the description ofthe task you wish to add: "))
                     
                     case 2:
                         updateTask(int(input("Enter the id of the task you wish to update: ")))
