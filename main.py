@@ -91,7 +91,7 @@ def deleteTask(task):
         data = json.load(f)
 
     for i in data:
-        if task in i["id"]:
+        if i["id"] == task:
             data.remove(i)
             with open("files/tasks.json","w") as f:
                 json.dump(data , f, indent=4)
@@ -110,7 +110,10 @@ if __name__ == "__main__":
                         AddTask(input("Input the task you wish to add"))
                     
                     case 2:
-                        updateTask()
+                        updateTask(int(input("Enter the id of the task you wish to update: ")))
+                    
+                    case 3:
+                        deleteTask()
 
 
 
