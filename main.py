@@ -54,37 +54,52 @@ def updateTask(task):
 def AllTasks():
     with open("files/tasks.json","r") as f:
         data = json.load(f)
-    
+    print("\n===== ALL TASKS =====")
     for i in data:
-        for key, value in i.items():
-            print(f"{key}: {value}")
+        print(f"\nID: {i['id']}")
+        print(f"Description: {i['description']}")
+        print(f"Status: {i['status']}")
+        print(f"Created At: {i['createdAt']}")
+        print(f"Updated At: {i['updatedAt']}")
+        print("-" * 30)
 
 def doneTasks():
     with open("files/tasks.json","r") as f:
         data = json.load(f)
-    
+    print("\n===== DONE TASKS =====")
     for i in data:
         if i["status"] == "Done":
-            for key, value in i.items():
-                print(f"{key}: {value}")
+            print(f"\nID: {i['id']}")
+            print(f"Description: {i['description']}")
+            print(f"Status: {i['status']}")
+            print(f"Updated At: {i['updatedAt']}")
+            print("-" * 30)
 
 def inProgress():
     with open("files/tasks.json","r") as f:
         data = json.load(f)
-        
+    print("\n===== IN PROGRESS TASKS =====")
     for i in data:
         if i["status"] == "In progress":
-            for key, value in i.items():
-                print(f"{key}: {value}")  
+            print(f"\nID: {i['id']}")
+            print(f"Description: {i['description']}")
+            print(f"Status: {i['status']}")
+            print(f"Updated At: {i['updatedAt']}")
+            print("-" * 30)
 
 def notDone():
     with open("files/tasks.json","r") as f:
         data = json.load(f)
-        
+    print("\n===== NOT DONE TASKS =====")
     for i in data:
         if i["status"] != "Done":
-            for key, value in i.items():
-                print(f"{key}: {value}")      
+            print(f"\nID: {i['id']}")
+            print(f"Description: {i['description']}")
+            print(f"Status: {i['status']}")
+            print(f"Updated At: {i['updatedAt']}")
+            print("-" * 30)
+
+
 
 def deleteTask(task):
     with open("files/tasks.json", "r") as f:
@@ -108,7 +123,7 @@ if __name__ == "__main__":
                 cmd = int(input("Please input a command:\n1: Add a task\n2: update a task\n3: Delete a task\nInput: "))
                 match cmd:
                     case 1:
-                        AddTask(input("Input the task you wish to add"))
+                        AddTask(input("Input the description of the task you wish to add: "))
                     
                     case 2:
                         updateTask(int(input("Enter the id of the task you wish to update: ")))
