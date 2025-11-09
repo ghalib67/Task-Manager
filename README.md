@@ -59,3 +59,10 @@ tasks.json – JSON file where all tasks are stored (created automatically).
 Task IDs are automatically incremented.
 
 All timestamps are in YYYY-MM-DD HH:MM:SS format.
+
+
+
+
+
+
+for more info:https://roadmap.sh/projects/task-tracker
