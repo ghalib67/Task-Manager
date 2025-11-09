@@ -66,6 +66,24 @@ def markInProgress(task_id):
             return
     print("could not find the task")
 
+def markDone(task_id):
+    with open("Files/tasks.json", "r") as f:
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []
+
+    for i in data:
+        if i["id"] == task_id:
+            i["status"] += "Done"
+            i["updatedAt"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            with open("Files/tasks.json", "w") as f:
+                json.dump(data, f, indent=4)
+                
+            print(f"Task {task_id} updated successfully.")
+            return
+    print("could not find the task")
+
 def AllTasks():
     with open("Files/tasks.json", "r") as f:
         try:
