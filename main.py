@@ -30,7 +30,7 @@ def AddTask(task: str):
     with open(file_path, "w") as f:
         json.dump(data, f, indent=4)
 
-def updateTask(task_id,task):
+def updateTask(task_id: int,task: str):
     with open("Files/tasks.json", "r") as f:
         try:
             data = json.load(f)
@@ -47,7 +47,25 @@ def updateTask(task_id,task):
             print(f"Task {task_id} updated successfully.")
             return
     print("could not find the task")
-    
+
+def markInProgress(task_id):
+    with open("Files/tasks.json", "r") as f:
+        try:
+            data = json.load(f)
+        except json.JSONDecodeError:
+            data = []
+
+    for i in data:
+        if i["id"] == task_id:
+            i["status"] += "In Progress"
+            i["updatedAt"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            with open("Files/tasks.json", "w") as f:
+                json.dump(data, f, indent=4)
+                
+            print(f"Task {task_id} updated successfully.")
+            return
+    print("could not find the task")
+
 def AllTasks():
     with open("Files/tasks.json", "r") as f:
         try:
