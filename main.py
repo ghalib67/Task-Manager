@@ -30,7 +30,7 @@ def AddTask(task: str):
     with open(file_path, "w") as f:
         json.dump(data, f, indent=4)
 
-def updateTask(task):
+def updateTask(task_id,task):
     with open("Files/tasks.json", "r") as f:
         try:
             data = json.load(f)
@@ -38,19 +38,13 @@ def updateTask(task):
             data = []
 
     for i in data:
-        if i["id"] == task:
-            progress = input("change the status to:\n1: Done \n2: In progress \n3: To-Do ")
-            match progress:
-                case "1":
-                    i["status"] = "Done"
-                case "2":
-                    i["status"] = "In progress"
-                case "3":
-                    i["status"] = "To-Do"
-                
+        if i["id"] == task_id:
+            i["description"] += f" {task}"
             i["updatedAt"] = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            with open("files/tasks.json", "w") as f:
+            with open("Files/tasks.json", "w") as f:
                 json.dump(data, f, indent=4)
+                
+            print(f"Task {task_id} updated successfully.")
             return
     print("could not find the task")
     
