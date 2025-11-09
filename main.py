@@ -95,17 +95,18 @@ def deleteTask(task):
             data.remove(i)
             with open("files/tasks.json","w") as f:
                 json.dump(data , f, indent=4)
-            return i
+            return
     
     print("Could not find the task!")
         
 if __name__ == "__main__":
-    while command != 1:
-        command = int(input("Please input a command:\n1: Add, Update or Delete a task\n2: List Tasks\nInput "))
+    command = 0
+    while command != 3:
+        command = int(input("Please input a command:\n1: Add, Update or Delete a task\n2: List Tasks\n3: Exit Task Manager\nInput "))
         match command:
             case 1:
-                command = int(input("Please input a command:\n1: Add a task\n2: update a task\n3: Delete a task\nInput: "))
-                match command:
+                cmd = int(input("Please input a command:\n1: Add a task\n2: update a task\n3: Delete a task\nInput: "))
+                match cmd:
                     case 1:
                         AddTask(input("Input the task you wish to add"))
                     
@@ -113,7 +114,20 @@ if __name__ == "__main__":
                         updateTask(int(input("Enter the id of the task you wish to update: ")))
                     
                     case 3:
-                        deleteTask()
-
+                        deleteTask(int(input("Input the id of the task you wish to remove")))
+            case 2:
+                command = int(input("Please input a command:\n1: List all tasks\n2: List done Tasks\n3: List in progress tasks\n4: List all tasks that arent done\nInput: "))
+                match command:
+                    case 1:
+                        AllTasks()
+                    
+                    case 2:
+                        doneTasks()
+                    
+                    case 3:
+                        inProgress()
+                    
+                    case 4:
+                        notDone()
 
 
